@@ -101,11 +101,14 @@ const styles = StyleSheet.create({
   // Bullet Points
   bulletList: {
     marginLeft: 0,
+    width: '100%',
+    maxWidth: 724,
   },
   bulletItem: {
     flexDirection: 'row',
     marginBottom: 0,
     alignItems: 'flex-start',
+    width: '100%',
   },
   bulletSymbol: {
     fontFamily: 'Times-Roman',
@@ -122,6 +125,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     flexGrow: 1,
     flexShrink: 1,
+    maxWidth: 709, // 724 - 15 for bullet symbol
   },
   
   // Education Specific

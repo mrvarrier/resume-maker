@@ -152,11 +152,17 @@ body {
 
 .ats-content {
   margin-bottom: 0;
+  width: 100%;
+  max-width: 724px;
+  box-sizing: border-box;
 }
 
 /* Job/Experience Styles */
 .ats-job {
   margin-bottom: 10px;
+  width: 100%;
+  max-width: 724px;
+  box-sizing: border-box;
 }
 
 .ats-job:last-child {
@@ -223,6 +229,9 @@ body {
 /* Leadership Styles */
 .ats-leadership {
   margin-bottom: 10px;
+  width: 100%;
+  max-width: 724px;
+  box-sizing: border-box;
 }
 
 .ats-leadership:last-child {
@@ -252,6 +261,9 @@ body {
 /* Awards Styles */
 .ats-award {
   margin-bottom: 10px;
+  width: 100%;
+  max-width: 724px;
+  box-sizing: border-box;
 }
 
 .ats-award:last-child {
@@ -308,9 +320,11 @@ body {
   padding: 0;
   list-style-type: disc;
   list-style-position: inside;
-  max-width: 100%;
+  width: 100%;
+  max-width: 724px; /* Match content width */
   word-wrap: break-word;
   overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
 .ats-bullet {
@@ -318,7 +332,9 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.2;
-  max-width: 100%;
+  width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  box-sizing: border-box;
+  hyphens: auto;
 }
