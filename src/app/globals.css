@@ -1,0 +1,296 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: 'Inter', sans-serif;
+}
+
+@media print {
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  .resume-page {
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+/* Resume-specific styles for better consistency */
+.resume-page {
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.resume-content {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure proper text rendering */
+.resume-content * {
+  box-sizing: border-box;
+}
+
+/* Fix bullet point alignment across browsers */
+.bullet-points li {
+  text-align: left;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Ensure dates don't wrap */
+.job-date,
+.education-date,
+.leadership-date,
+.award-date {
+  flex-shrink: 0;
+}
+
+/* Prevent text selection issues in preview */
+.resume-page {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
+
+.a4-container {
+  width: 794px;
+  height: 1123px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e5e5;
+}
+
+.a4-content {
+  width: 724px;
+  height: 1055px;
+  padding: 28px 35px 40px 35px;
+}
+
+/* ATS-Friendly Resume Styles */
+.ats-friendly {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #000000;
+}
+
+/* Header Styles - Clean and Parseable */
+.ats-header {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.ats-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ats-contact {
+  margin-top: 8px;
+}
+
+.ats-contact-item {
+  font-size: 10px;
+  margin: 2px 0;
+}
+
+/* Section Styles - Semantic and Clean */
+.ats-section {
+  margin-bottom: 20px;
+}
+
+.ats-section-header {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 2px;
+  margin-bottom: 10px;
+}
+
+.ats-content {
+  margin-bottom: 0;
+}
+
+/* Job/Experience Styles */
+.ats-job {
+  margin-bottom: 10px;
+}
+
+.ats-job:last-child {
+  margin-bottom: 0;
+}
+
+.ats-job-title {
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0 0 2px 0;
+}
+
+.ats-job-details {
+  margin-bottom: 4px;
+}
+
+.ats-company {
+  font-size: 10px;
+  font-style: italic;
+  margin: 0;
+}
+
+.ats-dates {
+  font-size: 10px;
+  margin: 2px 0;
+}
+
+/* Education Styles */
+.ats-education {
+  margin-bottom: 0;
+}
+
+.ats-degree {
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0 0 2px 0;
+}
+
+.ats-school {
+  font-size: 10px;
+  font-style: italic;
+  margin: 0 0 2px 0;
+}
+
+.ats-gpa {
+  font-size: 10px;
+  margin: 2px 0 0 0;
+}
+
+/* Leadership Styles */
+.ats-leadership {
+  margin-bottom: 10px;
+}
+
+.ats-leadership:last-child {
+  margin-bottom: 0;
+}
+
+.ats-leadership-title {
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0 0 2px 0;
+}
+
+.ats-leadership-details {
+  margin-bottom: 4px;
+}
+
+.ats-organization {
+  font-size: 10px;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Awards Styles */
+.ats-award {
+  margin-bottom: 10px;
+}
+
+.ats-award:last-child {
+  margin-bottom: 0;
+}
+
+.ats-award-title {
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0 0 2px 0;
+}
+
+.ats-award-details {
+  margin-bottom: 4px;
+}
+
+.ats-description {
+  font-size: 10px;
+  margin: 2px 0 0 0;
+}
+
+/* Skills Styles */
+.ats-skills-group {
+  margin-bottom: 6px;
+}
+
+.ats-skills-group:last-child {
+  margin-bottom: 0;
+}
+
+.ats-skills-category {
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0 0 2px 0;
+  display: inline;
+}
+
+.ats-skills-category:after {
+  content: ": ";
+}
+
+.ats-skills-list {
+  font-size: 10px;
+  display: inline;
+}
+
+/* Bullet Points - ATS Friendly */
+.ats-bullets {
+  margin: 0;
+  padding: 0;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.ats-bullet {
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+}
