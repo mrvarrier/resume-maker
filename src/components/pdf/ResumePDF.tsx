@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     color: '#000000',
     flexGrow: 1,
     flexShrink: 1,
-    width: 709, // 724 - 15 for bullet symbol
-    maxWidth: 709,
+    width: 500, // 724 - 15 for bullet symbol 709
+    maxWidth: 500,
   },
   
   // Education Specific
