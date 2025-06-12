@@ -18,6 +18,15 @@ export default function HomePage() {
   useEffect(() => {
     const data = loadResumeData();
     
+    // Migrate existing resumes to new award format
+    const migratedResumes = data.resumes.map(resume => ({
+      ...resume,
+      awards: resume.awards.map(award => ({
+        ...award,
+        bullets: award.bullets || (award.description ? [award.description] : ['']),
+      }))
+    }));
+    
     // If no resumes exist, add sample resume for demonstration
     if (data.resumes.length === 0) {
       const initialData = {
@@ -27,7 +36,12 @@ export default function HomePage() {
       saveResumeData(initialData);
       setResumeData(initialData);
     } else {
-      setResumeData(data);
+      const migratedData = { ...data, resumes: migratedResumes };
+      setResumeData(migratedData);
+      // Save migrated data back to localStorage
+      if (JSON.stringify(data) !== JSON.stringify(migratedData)) {
+        saveResumeData(migratedData);
+      }
     }
     
     setLoading(false);

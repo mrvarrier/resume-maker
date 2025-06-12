@@ -29,8 +29,16 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
     const data = loadResumeData();
     const foundResume = data.resumes.find(r => r.id === resumeId);
     if (foundResume) {
-      setResume(foundResume);
-      lastResumeRef.current = JSON.stringify(foundResume);
+      // Migrate awards from old description format to new bullets format
+      const migratedResume = {
+        ...foundResume,
+        awards: foundResume.awards.map(award => ({
+          ...award,
+          bullets: award.bullets || (award.description ? [award.description] : ['']),
+        }))
+      };
+      setResume(migratedResume);
+      lastResumeRef.current = JSON.stringify(migratedResume);
       setLastSaved(new Date(foundResume.updatedAt));
     }
     setLoading(false);
