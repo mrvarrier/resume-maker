@@ -163,25 +163,31 @@ body {
   margin-bottom: 0;
 }
 
+.ats-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+
 .ats-job-title {
   font-size: 10px;
   font-weight: bold;
-  margin: 0 0 2px 0;
-}
-
-.ats-job-details {
-  margin-bottom: 4px;
+  margin: 0;
+  flex-grow: 1;
 }
 
 .ats-company {
   font-size: 10px;
   font-style: italic;
-  margin: 0;
+  margin: 0 0 4px 0;
 }
 
 .ats-dates {
   font-size: 10px;
-  margin: 2px 0;
+  margin: 0;
+  white-space: nowrap;
+  margin-left: 8px;
 }
 
 /* Education Styles */
@@ -189,16 +195,24 @@ body {
   margin-bottom: 0;
 }
 
+.ats-education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+
 .ats-degree {
   font-size: 10px;
   font-weight: bold;
-  margin: 0 0 2px 0;
+  margin: 0;
+  flex-grow: 1;
 }
 
 .ats-school {
   font-size: 10px;
   font-style: italic;
-  margin: 0 0 2px 0;
+  margin: 0 0 4px 0;
 }
 
 .ats-gpa {
@@ -215,20 +229,24 @@ body {
   margin-bottom: 0;
 }
 
+.ats-leadership-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+
 .ats-leadership-title {
   font-size: 10px;
   font-weight: bold;
-  margin: 0 0 2px 0;
-}
-
-.ats-leadership-details {
-  margin-bottom: 4px;
+  margin: 0;
+  flex-grow: 1;
 }
 
 .ats-organization {
   font-size: 10px;
   font-style: italic;
-  margin: 0;
+  margin: 0 0 4px 0;
 }
 
 /* Awards Styles */
@@ -240,14 +258,18 @@ body {
   margin-bottom: 0;
 }
 
+.ats-award-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+
 .ats-award-title {
   font-size: 10px;
   font-weight: bold;
-  margin: 0 0 2px 0;
-}
-
-.ats-award-details {
-  margin-bottom: 4px;
+  margin: 0;
+  flex-grow: 1;
 }
 
 .ats-description {
@@ -286,6 +308,9 @@ body {
   padding: 0;
   list-style-type: disc;
   list-style-position: inside;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .ats-bullet {
@@ -293,4 +318,7 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.2;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }

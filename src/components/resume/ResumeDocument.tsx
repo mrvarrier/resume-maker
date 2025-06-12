@@ -52,9 +52,11 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
             <h2 className="ats-section-header">EDUCATION</h2>
             <div className="ats-content">
               <div className="ats-education">
-                <h3 className="ats-degree">{education.degree}</h3>
+                <div className="ats-education-header">
+                  <h3 className="ats-degree">{education.degree}</h3>
+                  <div className="ats-dates">{education.duration}</div>
+                </div>
                 <div className="ats-school">{education.institution}</div>
-                <div className="ats-dates">{education.duration}</div>
                 {education.gpa && (
                   <div className="ats-gpa">GPA: {education.gpa}</div>
                 )}
@@ -70,11 +72,11 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
             <div className="ats-content">
               {experience.map((exp, index) => (
                 <div key={exp.id} className="ats-job">
-                  <h3 className="ats-job-title">{exp.title}</h3>
-                  <div className="ats-job-details">
-                    <div className="ats-company">{exp.company}</div>
+                  <div className="ats-job-header">
+                    <h3 className="ats-job-title">{exp.title}</h3>
                     <div className="ats-dates">{exp.duration}</div>
                   </div>
+                  <div className="ats-company">{exp.company}</div>
                   {exp.bullets.length > 0 && exp.bullets.some(bullet => bullet.trim()) && (
                     <ul className="ats-bullets">
                       {exp.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
@@ -97,11 +99,11 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
             <div className="ats-content">
               {leadership.map((lead, index) => (
                 <div key={lead.id} className="ats-leadership">
-                  <h3 className="ats-leadership-title">{lead.title}</h3>
-                  <div className="ats-leadership-details">
-                    <div className="ats-organization">{lead.organization}</div>
+                  <div className="ats-leadership-header">
+                    <h3 className="ats-leadership-title">{lead.title}</h3>
                     <div className="ats-dates">{lead.duration}</div>
                   </div>
+                  <div className="ats-organization">{lead.organization}</div>
                   {lead.bullets.length > 0 && lead.bullets.some(bullet => bullet.trim()) && (
                     <ul className="ats-bullets">
                       {lead.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
@@ -124,11 +126,11 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
             <div className="ats-content">
               {awards.map((award, index) => (
                 <div key={award.id} className="ats-award">
-                  <h3 className="ats-award-title">{award.title}</h3>
-                  <div className="ats-award-details">
-                    <div className="ats-organization">{award.organization}</div>
+                  <div className="ats-award-header">
+                    <h3 className="ats-award-title">{award.title}</h3>
                     <div className="ats-dates">{award.date}</div>
                   </div>
+                  <div className="ats-organization">{award.organization}</div>
                   {award.description && (
                     <div className="ats-description">{award.description}</div>
                   )}
