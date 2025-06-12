@@ -64,15 +64,21 @@ const styles = StyleSheet.create({
   // Experience/Leadership Items
   experienceItem: {
     marginBottom: 10,
+    width: 724,
+    maxWidth: 724,
   },
   experienceItemLast: {
     marginBottom: 0,
+    width: 724,
+    maxWidth: 724,
   },
   itemHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: 2,
+    width: 724,
+    maxWidth: 724,
   },
   itemTitle: {
     fontFamily: 'Times-Bold',
@@ -101,14 +107,14 @@ const styles = StyleSheet.create({
   // Bullet Points
   bulletList: {
     marginLeft: 0,
-    width: '100%',
-    maxWidth: 724,
+    width: 724, // Exact content width
   },
   bulletItem: {
     flexDirection: 'row',
     marginBottom: 0,
     alignItems: 'flex-start',
-    width: '100%',
+    width: 724, // Exact content width
+    maxWidth: 724,
   },
   bulletSymbol: {
     fontFamily: 'Times-Roman',
@@ -125,7 +131,8 @@ const styles = StyleSheet.create({
     color: '#000000',
     flexGrow: 1,
     flexShrink: 1,
-    maxWidth: 709, // 724 - 15 for bullet symbol
+    width: 709, // 724 - 15 for bullet symbol
+    maxWidth: 709,
   },
   
   // Education Specific
@@ -143,9 +150,13 @@ const styles = StyleSheet.create({
   // Awards Specific
   awardItem: {
     marginBottom: 10,
+    width: 724,
+    maxWidth: 724,
   },
   awardItemLast: {
     marginBottom: 0,
+    width: 724,
+    maxWidth: 724,
   },
   awardDescription: {
     fontFamily: 'Times-Roman',
