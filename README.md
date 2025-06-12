@@ -322,28 +322,3 @@ If you encounter any issues or have questions:
 2. Set build command: `npm run build`
 3. Set publish directory: `out`
 4. Deploy
-
-## 🔮 Roadmap
-
-### Upcoming Features
-- [ ] **Multiple resume templates** with different layouts
-- [ ] **Import from LinkedIn** for quick setup
-- [ ] **Resume analytics** and ATS scoring
-- [ ] **Export to multiple formats** (Word, HTML, JSON)
-- [ ] **Cloud storage** integration (Google Drive, Dropbox)
-- [ ] **Team collaboration** features
-- [ ] **Resume version history** and comparison
-- [ ] **Mobile-responsive editor** for on-the-go editing
-
-### Technical Improvements
-- [ ] **Database integration** for persistent storage
-- [ ] **User authentication** and accounts
-- [ ] **Real-time collaboration** with WebSockets
-- [ ] **Advanced PDF customization** options
-- [ ] **Performance optimizations** for large resumes
-- [ ] **Accessibility improvements** (WCAG compliance)
-- [ ] **Internationalization** support
-
----
-
-**Built with ❤️ for job seekers who want ATS-friendly resumes that actually get through screening systems.**
