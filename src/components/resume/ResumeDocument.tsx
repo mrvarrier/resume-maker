@@ -40,13 +40,28 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
             {personalInfo.name || 'Your Name'}
           </h1>
           <div className="ats-contact">
-            {[personalInfo.email && `Email: ${personalInfo.email}`, 
-              personalInfo.linkedin && `LinkedIn: ${personalInfo.linkedin}`, 
-              personalInfo.portfolio && `Portfolio: ${personalInfo.portfolio}`]
+            {[personalInfo.email, personalInfo.linkedin, personalInfo.portfolio]
               .filter(Boolean)
               .join(' | ')}
           </div>
         </header>
+
+        {/* Education Section - ATS Friendly */}
+        {(education.institution || education.degree) && (
+          <section className="ats-section">
+            <h2 className="ats-section-header">EDUCATION</h2>
+            <div className="ats-content">
+              <div className="ats-education">
+                <h3 className="ats-degree">{education.degree}</h3>
+                <div className="ats-school">{education.institution}</div>
+                <div className="ats-dates">{education.duration}</div>
+                {education.gpa && (
+                  <div className="ats-gpa">GPA: {education.gpa}</div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Experience Section - ATS Friendly */}
         {experience.length > 0 && (
@@ -71,23 +86,6 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
                   )}
                 </div>
               ))}
-            </div>
-          </section>
-        )}
-
-        {/* Education Section - ATS Friendly */}
-        {(education.institution || education.degree) && (
-          <section className="ats-section">
-            <h2 className="ats-section-header">EDUCATION</h2>
-            <div className="ats-content">
-              <div className="ats-education">
-                <h3 className="ats-degree">{education.degree}</h3>
-                <div className="ats-school">{education.institution}</div>
-                <div className="ats-dates">{education.duration}</div>
-                {education.gpa && (
-                  <div className="ats-gpa">GPA: {education.gpa}</div>
-                )}
-              </div>
             </div>
           </section>
         )}
@@ -147,14 +145,14 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
             <div className="ats-content">
               {skills.technical.length > 0 && (
                 <div className="ats-skills-group">
-                  <h3 className="ats-skills-category">Technical Skills</h3>
-                  <div className="ats-skills-list">{skills.technical.join(', ')}</div>
+                  <span className="ats-skills-category">Technical</span>
+                  <span className="ats-skills-list">{skills.technical.join(', ')}</span>
                 </div>
               )}
               {skills.soft.length > 0 && (
                 <div className="ats-skills-group">
-                  <h3 className="ats-skills-category">Soft Skills</h3>
-                  <div className="ats-skills-list">{skills.soft.join(', ')}</div>
+                  <span className="ats-skills-category">Soft Skills</span>
+                  <span className="ats-skills-list">{skills.soft.join(', ')}</span>
                 </div>
               )}
             </div>

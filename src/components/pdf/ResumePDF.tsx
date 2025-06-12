@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: 'Times-Bold',
     fontSize: 24,
-    margin: '0 0 8 0',
+    margin: '0 0 5 0',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     lineHeight: 1.2,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#000000',
     lineHeight: 1.2,
-    marginTop: 8,
+    marginTop: 5,
   },
   
   // Section Structure
@@ -154,16 +154,19 @@ const styles = StyleSheet.create({
   // Skills Specific - ATS Friendly
   skillsGroup: {
     marginBottom: 6,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   skillsGroupLast: {
     marginBottom: 0,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   skillsCategory: {
     fontFamily: 'Times-Bold',
     fontSize: 10,
     lineHeight: 1.2,
     color: '#000000',
-    marginBottom: 2,
   },
   skillsList: {
     fontFamily: 'Times-Roman',
@@ -189,13 +192,28 @@ export function ResumePDF({ resume }: ResumePDFProps) {
             {personalInfo.name || 'Your Name'}
           </Text>
           <Text style={styles.contactInfo}>
-            {[personalInfo.email && `Email: ${personalInfo.email}`, 
-              personalInfo.linkedin && `LinkedIn: ${personalInfo.linkedin}`, 
-              personalInfo.portfolio && `Portfolio: ${personalInfo.portfolio}`]
+            {[personalInfo.email, personalInfo.linkedin, personalInfo.portfolio]
               .filter(Boolean)
               .join(' | ')}
           </Text>
         </View>
+
+        {/* Education Section */}
+        {(education.institution || education.degree) && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>EDUCATION</Text>
+            <View style={styles.educationContent}>
+              <View style={styles.itemHeader}>
+                <Text style={styles.itemTitle}>{education.degree}</Text>
+                <Text style={styles.itemDate}>{education.duration}</Text>
+              </View>
+              <Text style={styles.itemSubtitle}>{education.institution}</Text>
+              {education.gpa && (
+                <Text style={styles.gpaText}>GPA: {education.gpa}</Text>
+              )}
+            </View>
+          </View>
+        )}
 
         {/* Experience Section */}
         {experience.length > 0 && (
@@ -223,23 +241,6 @@ export function ResumePDF({ resume }: ResumePDFProps) {
                 )}
               </View>
             ))}
-          </View>
-        )}
-
-        {/* Education Section */}
-        {(education.institution || education.degree) && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>EDUCATION</Text>
-            <View style={styles.educationContent}>
-              <View style={styles.itemHeader}>
-                <Text style={styles.itemTitle}>{education.degree}</Text>
-                <Text style={styles.itemDate}>{education.duration}</Text>
-              </View>
-              <Text style={styles.itemSubtitle}>{education.institution}</Text>
-              {education.gpa && (
-                <Text style={styles.gpaText}>GPA: {education.gpa}</Text>
-              )}
-            </View>
           </View>
         )}
 
@@ -300,13 +301,13 @@ export function ResumePDF({ resume }: ResumePDFProps) {
             <Text style={styles.sectionTitle}>SKILLS</Text>
             {skills.technical.length > 0 && (
               <View style={skills.soft.length > 0 ? styles.skillsGroup : styles.skillsGroupLast}>
-                <Text style={styles.skillsCategory}>Technical Skills</Text>
+                <Text style={styles.skillsCategory}>Technical: </Text>
                 <Text style={styles.skillsList}>{skills.technical.join(', ')}</Text>
               </View>
             )}
             {skills.soft.length > 0 && (
               <View style={styles.skillsGroupLast}>
-                <Text style={styles.skillsCategory}>Soft Skills</Text>
+                <Text style={styles.skillsCategory}>Soft Skills: </Text>
                 <Text style={styles.skillsList}>{skills.soft.join(', ')}</Text>
               </View>
             )}
