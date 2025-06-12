@@ -62,14 +62,19 @@ export const sampleResume: Resume = {
       title: 'Employee of the Year',
       organization: 'Tech Solutions Inc.',
       date: '2023',
-      description: 'Recognized for outstanding contribution to product development',
+      bullets: [
+        'Recognized for outstanding contribution to product development',
+        'Led key initiatives that improved team productivity by 25%',
+      ],
     },
     {
       id: 'award_2',
       title: "Dean's List",
       organization: 'University of Technology',
       date: '2019, 2020',
-      description: '',
+      bullets: [
+        'Maintained GPA above 3.8 for four consecutive semesters',
+      ],
     },
   ],
   skills: {

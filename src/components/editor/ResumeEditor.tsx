@@ -179,42 +179,54 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
     updateResume({ experience: updatedExperience });
   };
 
-  const addBullet = (type: 'experience' | 'leadership', index: number) => {
+  const addBullet = (type: 'experience' | 'leadership' | 'award', index: number) => {
     if (!resume) return;
     if (type === 'experience') {
       const updatedExperience = [...resume.experience];
       updatedExperience[index].bullets.push('');
       updateResume({ experience: updatedExperience });
-    } else {
+    } else if (type === 'leadership') {
       const updatedLeadership = [...resume.leadership];
       updatedLeadership[index].bullets.push('');
       updateResume({ leadership: updatedLeadership });
+    } else {
+      const updatedAwards = [...resume.awards];
+      updatedAwards[index].bullets.push('');
+      updateResume({ awards: updatedAwards });
     }
   };
 
-  const updateBullet = (type: 'experience' | 'leadership', itemIndex: number, bulletIndex: number, value: string) => {
+  const updateBullet = (type: 'experience' | 'leadership' | 'award', itemIndex: number, bulletIndex: number, value: string) => {
     if (!resume) return;
     if (type === 'experience') {
       const updatedExperience = [...resume.experience];
       updatedExperience[itemIndex].bullets[bulletIndex] = value;
       updateResume({ experience: updatedExperience });
-    } else {
+    } else if (type === 'leadership') {
       const updatedLeadership = [...resume.leadership];
       updatedLeadership[itemIndex].bullets[bulletIndex] = value;
       updateResume({ leadership: updatedLeadership });
+    } else {
+      const updatedAwards = [...resume.awards];
+      updatedAwards[itemIndex].bullets[bulletIndex] = value;
+      updateResume({ awards: updatedAwards });
     }
   };
 
-  const deleteBullet = (type: 'experience' | 'leadership', itemIndex: number, bulletIndex: number) => {
+  const deleteBullet = (type: 'experience' | 'leadership' | 'award', itemIndex: number, bulletIndex: number) => {
     if (!resume) return;
     if (type === 'experience') {
       const updatedExperience = [...resume.experience];
       updatedExperience[itemIndex].bullets = updatedExperience[itemIndex].bullets.filter((_, i) => i !== bulletIndex);
       updateResume({ experience: updatedExperience });
-    } else {
+    } else if (type === 'leadership') {
       const updatedLeadership = [...resume.leadership];
       updatedLeadership[itemIndex].bullets = updatedLeadership[itemIndex].bullets.filter((_, i) => i !== bulletIndex);
       updateResume({ leadership: updatedLeadership });
+    } else {
+      const updatedAwards = [...resume.awards];
+      updatedAwards[itemIndex].bullets = updatedAwards[itemIndex].bullets.filter((_, i) => i !== bulletIndex);
+      updateResume({ awards: updatedAwards });
     }
   };
 
@@ -252,7 +264,7 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
       title: '',
       organization: '',
       date: '',
-      description: '',
+      bullets: [''],
     };
     updateResume({
       awards: [...resume.awards, newAward],
@@ -667,11 +679,36 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
                       onChange={(e) => updateAward(index, { organization: e.target.value })}
                     />
                     
-                    <Textarea
-                      placeholder="Description (optional)"
-                      value={award.description || ''}
-                      onChange={(e) => updateAward(index, { description: e.target.value })}
-                    />
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <label className="text-sm font-medium">Bullet Points</label>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => addBullet('award', index)}
+                        >
+                          <Plus className="w-3 h-3" />
+                        </Button>
+                      </div>
+                      
+                      {award.bullets.map((bullet, bulletIndex) => (
+                        <div key={bulletIndex} className="flex space-x-2">
+                          <Textarea
+                            placeholder="Achievement or responsibility"
+                            value={bullet}
+                            onChange={(e) => updateBullet('award', index, bulletIndex, e.target.value)}
+                            className="min-h-[60px]"
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => deleteBullet('award', index, bulletIndex)}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </CardContent>

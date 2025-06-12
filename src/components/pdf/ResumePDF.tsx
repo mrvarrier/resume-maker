@@ -64,37 +64,33 @@ const styles = StyleSheet.create({
   // Experience/Leadership Items
   experienceItem: {
     marginBottom: 10,
-    width: 724,
-    maxWidth: 724,
+    width: '100%',
   },
   experienceItemLast: {
     marginBottom: 0,
-    width: 724,
-    maxWidth: 724,
+    width: '100%',
   },
   itemHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'baseline',
     marginBottom: 2,
-    width: 724,
-    maxWidth: 724,
+    width: '100%',
   },
   itemTitle: {
     fontFamily: 'Times-Bold',
     fontSize: 10,
     lineHeight: 1.2,
     color: '#000000',
-    flexGrow: 1,
-    flexShrink: 1,
+    width: '70%',
   },
   itemDate: {
-    fontFamily: 'Times-Roman',
+    fontFamily: 'Times-Italic',
     fontSize: 10,
     color: '#000000',
-    marginLeft: 8,
-    flexShrink: 0,
     lineHeight: 1.2,
+    width: '30%',
+    textAlign: 'right',
   },
   itemSubtitle: {
     fontFamily: 'Times-Italic',
@@ -150,13 +146,11 @@ const styles = StyleSheet.create({
   // Awards Specific
   awardItem: {
     marginBottom: 10,
-    width: 724,
-    maxWidth: 724,
+    width: '100%',
   },
   awardItemLast: {
     marginBottom: 0,
-    width: 724,
-    maxWidth: 724,
+    width: '100%',
   },
   awardDescription: {
     fontFamily: 'Times-Roman',
@@ -302,8 +296,15 @@ export function ResumePDF({ resume }: ResumePDFProps) {
                   <Text style={styles.itemDate}>{award.date}</Text>
                 </View>
                 <Text style={styles.itemSubtitle}>{award.organization}</Text>
-                {award.description && (
-                  <Text style={styles.awardDescription}>{award.description}</Text>
+                {award.bullets.length > 0 && award.bullets.some(bullet => bullet.trim()) && (
+                  <View style={styles.bulletList}>
+                    {award.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
+                      <View key={bulletIndex} style={styles.bulletItem}>
+                        <Text style={styles.bulletSymbol}>•</Text>
+                        <Text style={styles.bulletText}>{bullet}</Text>
+                      </View>
+                    ))}
+                  </View>
                 )}
               </View>
             ))}

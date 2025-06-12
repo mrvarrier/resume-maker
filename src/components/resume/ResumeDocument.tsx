@@ -131,8 +131,14 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
                     <div className="ats-dates">{award.date}</div>
                   </div>
                   <div className="ats-organization">{award.organization}</div>
-                  {award.description && (
-                    <div className="ats-description">{award.description}</div>
+                  {award.bullets.length > 0 && award.bullets.some(bullet => bullet.trim()) && (
+                    <ul className="ats-bullets">
+                      {award.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
+                        <li key={bulletIndex} className="ats-bullet">
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </div>
               ))}
