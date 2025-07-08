@@ -30,8 +30,7 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
     const data = loadResumeData();
     const foundResume = data.resumes.find(r => r.id === resumeId);
     if (foundResume) {
-      // Migrate awards from old description format to new bullets format
-      // and migrate education from single to array format
+      // Migrate awards, education, section headings, and links to new formats
       const migratedResume = {
         ...foundResume,
         awards: foundResume.awards.map(award => ({
@@ -44,6 +43,18 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
             ? [{ ...foundResume.education, id: `edu_${Date.now()}` }]
             : [],
         sectionHeadings: foundResume.sectionHeadings || DEFAULT_SECTION_HEADINGS,
+        personalInfo: {
+          ...foundResume.personalInfo,
+          linkedin: typeof foundResume.personalInfo.linkedin === 'string' 
+            ? { text: foundResume.personalInfo.linkedin ? 'LinkedIn' : '', url: foundResume.personalInfo.linkedin || '' }
+            : foundResume.personalInfo.linkedin || { text: '', url: '' },
+          portfolio: typeof foundResume.personalInfo.portfolio === 'string' 
+            ? { text: foundResume.personalInfo.portfolio ? 'Portfolio' : '', url: foundResume.personalInfo.portfolio || '' }
+            : foundResume.personalInfo.portfolio || { text: '', url: '' },
+          github: foundResume.personalInfo.github && typeof foundResume.personalInfo.github === 'string'
+            ? { text: foundResume.personalInfo.github ? 'GitHub' : '', url: foundResume.personalInfo.github || '' }
+            : foundResume.personalInfo.github || { text: '', url: '' },
+        },
       };
       setResume(migratedResume);
       lastResumeRef.current = JSON.stringify(migratedResume);
@@ -464,20 +475,87 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
                     personalInfo: { ...resume.personalInfo, email: e.target.value }
                   })}
                 />
-                <Input
-                  placeholder="LinkedIn"
-                  value={resume.personalInfo.linkedin}
-                  onChange={(e) => updateResume({
-                    personalInfo: { ...resume.personalInfo, linkedin: e.target.value }
-                  })}
-                />
-                <Input
-                  placeholder="Portfolio/Website"
-                  value={resume.personalInfo.portfolio}
-                  onChange={(e) => updateResume({
-                    personalInfo: { ...resume.personalInfo, portfolio: e.target.value }
-                  })}
-                />
+                
+                {/* LinkedIn */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">LinkedIn</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Input
+                      placeholder="Display text (e.g., LinkedIn)"
+                      value={resume.personalInfo.linkedin.text}
+                      onChange={(e) => updateResume({
+                        personalInfo: { 
+                          ...resume.personalInfo, 
+                          linkedin: { ...resume.personalInfo.linkedin, text: e.target.value }
+                        }
+                      })}
+                    />
+                    <Input
+                      placeholder="URL (e.g., https://linkedin.com/in/username)"
+                      value={resume.personalInfo.linkedin.url}
+                      onChange={(e) => updateResume({
+                        personalInfo: { 
+                          ...resume.personalInfo, 
+                          linkedin: { ...resume.personalInfo.linkedin, url: e.target.value }
+                        }
+                      })}
+                    />
+                  </div>
+                </div>
+
+                {/* Portfolio */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">Portfolio</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Input
+                      placeholder="Display text (e.g., Portfolio)"
+                      value={resume.personalInfo.portfolio.text}
+                      onChange={(e) => updateResume({
+                        personalInfo: { 
+                          ...resume.personalInfo, 
+                          portfolio: { ...resume.personalInfo.portfolio, text: e.target.value }
+                        }
+                      })}
+                    />
+                    <Input
+                      placeholder="URL (e.g., https://yoursite.com)"
+                      value={resume.personalInfo.portfolio.url}
+                      onChange={(e) => updateResume({
+                        personalInfo: { 
+                          ...resume.personalInfo, 
+                          portfolio: { ...resume.personalInfo.portfolio, url: e.target.value }
+                        }
+                      })}
+                    />
+                  </div>
+                </div>
+
+                {/* GitHub */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">GitHub</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Input
+                      placeholder="Display text (e.g., GitHub)"
+                      value={resume.personalInfo.github.text}
+                      onChange={(e) => updateResume({
+                        personalInfo: { 
+                          ...resume.personalInfo, 
+                          github: { ...resume.personalInfo.github, text: e.target.value }
+                        }
+                      })}
+                    />
+                    <Input
+                      placeholder="URL (e.g., https://github.com/username)"
+                      value={resume.personalInfo.github.url}
+                      onChange={(e) => updateResume({
+                        personalInfo: { 
+                          ...resume.personalInfo, 
+                          github: { ...resume.personalInfo.github, url: e.target.value }
+                        }
+                      })}
+                    />
+                  </div>
+                </div>
               </CardContent>
             </Card>
 

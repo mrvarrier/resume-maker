@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Link } from '@react-pdf/renderer';
 import { Resume } from '@/types/resume';
 
 const styles = StyleSheet.create({
@@ -201,7 +201,18 @@ export function ResumePDF({ resume }: ResumePDFProps) {
             {personalInfo.name || 'Your Name'}
           </Text>
           <Text style={styles.contactInfo}>
-            {[personalInfo.email, personalInfo.linkedin, personalInfo.portfolio]
+            {[
+              personalInfo.email,
+              personalInfo.linkedin.text && personalInfo.linkedin.url 
+                ? personalInfo.linkedin.text 
+                : personalInfo.linkedin.text || personalInfo.linkedin.url,
+              personalInfo.portfolio.text && personalInfo.portfolio.url 
+                ? personalInfo.portfolio.text 
+                : personalInfo.portfolio.text || personalInfo.portfolio.url,
+              personalInfo.github.text && personalInfo.github.url 
+                ? personalInfo.github.text 
+                : personalInfo.github.text || personalInfo.github.url
+            ]
               .filter(Boolean)
               .join(' | ')}
           </Text>

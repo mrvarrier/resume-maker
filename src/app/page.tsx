@@ -19,7 +19,7 @@ export default function HomePage() {
   useEffect(() => {
     const data = loadResumeData();
     
-    // Migrate existing resumes to new format (awards, education, section headings)
+    // Migrate existing resumes to new format (awards, education, section headings, links)
     const migratedResumes = data.resumes.map(resume => ({
       ...resume,
       awards: resume.awards.map(award => ({
@@ -32,6 +32,18 @@ export default function HomePage() {
           ? [{ ...resume.education, id: `edu_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` }]
           : [],
       sectionHeadings: resume.sectionHeadings || DEFAULT_SECTION_HEADINGS,
+      personalInfo: {
+        ...resume.personalInfo,
+        linkedin: typeof resume.personalInfo.linkedin === 'string' 
+          ? { text: resume.personalInfo.linkedin ? 'LinkedIn' : '', url: resume.personalInfo.linkedin || '' }
+          : resume.personalInfo.linkedin || { text: '', url: '' },
+        portfolio: typeof resume.personalInfo.portfolio === 'string' 
+          ? { text: resume.personalInfo.portfolio ? 'Portfolio' : '', url: resume.personalInfo.portfolio || '' }
+          : resume.personalInfo.portfolio || { text: '', url: '' },
+        github: resume.personalInfo.github && typeof resume.personalInfo.github === 'string'
+          ? { text: resume.personalInfo.github ? 'GitHub' : '', url: resume.personalInfo.github || '' }
+          : resume.personalInfo.github || { text: '', url: '' },
+      },
     }));
     
     // If no resumes exist, add sample resume for demonstration

@@ -20,8 +20,9 @@ export const DEFAULT_RESUME = {
   personalInfo: {
     name: '',
     email: '',
-    linkedin: '',
-    portfolio: '',
+    linkedin: { text: '', url: '' },
+    portfolio: { text: '', url: '' },
+    github: { text: '', url: '' },
   },
   experience: [],
   education: [],

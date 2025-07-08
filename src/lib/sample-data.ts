@@ -9,8 +9,9 @@ export const sampleResume: Resume = {
   personalInfo: {
     name: 'John Smith',
     email: 'john.smith@email.com',
-    linkedin: 'linkedin.com/in/johnsmith',
-    portfolio: 'johnsmith.dev',
+    linkedin: { text: 'LinkedIn', url: 'https://linkedin.com/in/johnsmith' },
+    portfolio: { text: 'Portfolio', url: 'https://johnsmith.dev' },
+    github: { text: 'GitHub', url: 'https://github.com/johnsmith' },
   },
   experience: [
     {

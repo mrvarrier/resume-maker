@@ -1,8 +1,14 @@
+export interface Link {
+  text: string;
+  url: string;
+}
+
 export interface PersonalInfo {
   name: string;
   email: string;
-  linkedin: string;
-  portfolio: string;
+  linkedin: Link;
+  portfolio: Link;
+  github: Link;
 }
 
 export interface Experience {

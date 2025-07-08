@@ -40,9 +40,47 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
             {personalInfo.name || 'Your Name'}
           </h1>
           <div className="ats-contact">
-            {[personalInfo.email, personalInfo.linkedin, personalInfo.portfolio]
+            {[
+              personalInfo.email,
+              personalInfo.linkedin.text && personalInfo.linkedin.url ? (
+                <a 
+                  key="linkedin"
+                  href={personalInfo.linkedin.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="ats-link"
+                >
+                  {personalInfo.linkedin.text}
+                </a>
+              ) : personalInfo.linkedin.text || personalInfo.linkedin.url,
+              personalInfo.portfolio.text && personalInfo.portfolio.url ? (
+                <a 
+                  key="portfolio"
+                  href={personalInfo.portfolio.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="ats-link"
+                >
+                  {personalInfo.portfolio.text}
+                </a>
+              ) : personalInfo.portfolio.text || personalInfo.portfolio.url,
+              personalInfo.github.text && personalInfo.github.url ? (
+                <a 
+                  key="github"
+                  href={personalInfo.github.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="ats-link"
+                >
+                  {personalInfo.github.text}
+                </a>
+              ) : personalInfo.github.text || personalInfo.github.url
+            ]
               .filter(Boolean)
-              .join(' | ')}
+              .reduce((acc, curr, index) => {
+                if (index === 0) return [curr];
+                return [...acc, ' | ', curr];
+              }, [])}
           </div>
         </header>
 
