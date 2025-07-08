@@ -7,8 +7,9 @@ import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { ResumeDocument } from '@/components/resume/ResumeDocument';
-import { Resume, Experience, Leadership, Award } from '@/types/resume';
+import { Resume, Experience, Leadership, Award, Education } from '@/types/resume';
 import { loadResumeData, saveResumeData } from '@/lib/resume-utils';
+import { DEFAULT_SECTION_HEADINGS } from '@/lib/constants';
 import Link from 'next/link';
 
 interface ResumeEditorProps {
@@ -30,12 +31,19 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
     const foundResume = data.resumes.find(r => r.id === resumeId);
     if (foundResume) {
       // Migrate awards from old description format to new bullets format
+      // and migrate education from single to array format
       const migratedResume = {
         ...foundResume,
         awards: foundResume.awards.map(award => ({
           ...award,
           bullets: award.bullets || (award.description ? [award.description] : ['']),
-        }))
+        })),
+        education: Array.isArray(foundResume.education) 
+          ? foundResume.education 
+          : foundResume.education && (foundResume.education.institution || foundResume.education.degree)
+            ? [{ ...foundResume.education, id: `edu_${Date.now()}` }]
+            : [],
+        sectionHeadings: foundResume.sectionHeadings || DEFAULT_SECTION_HEADINGS,
       };
       setResume(migratedResume);
       lastResumeRef.current = JSON.stringify(migratedResume);
@@ -292,6 +300,33 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
     updateResume({ awards: updatedAwards });
   };
 
+  const addEducation = () => {
+    if (!resume) return;
+    const newEducation: Education = {
+      id: `edu_${Date.now()}`,
+      institution: '',
+      degree: '',
+      duration: '',
+      gpa: '',
+    };
+    updateResume({
+      education: [...resume.education, newEducation],
+    });
+  };
+
+  const updateEducation = (index: number, updates: Partial<Education>) => {
+    if (!resume) return;
+    const updatedEducation = [...resume.education];
+    updatedEducation[index] = { ...updatedEducation[index], ...updates };
+    updateResume({ education: updatedEducation });
+  };
+
+  const deleteEducation = (index: number) => {
+    if (!resume) return;
+    const updatedEducation = resume.education.filter((_, i) => i !== index);
+    updateResume({ education: updatedEducation });
+  };
+
   const addSkill = (type: 'technical' | 'soft') => {
     if (!resume) return;
     const updatedSkills = { ...resume.skills };
@@ -450,7 +485,16 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>Experience</CardTitle>
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Experience section heading"
+                      value={resume.sectionHeadings.experience}
+                      onChange={(e) => updateResume({
+                        sectionHeadings: { ...resume.sectionHeadings, experience: e.target.value }
+                      })}
+                      className="font-medium text-lg border-none p-0 focus:ring-0"
+                    />
+                  </div>
                   <Button onClick={addExperience} size="sm">
                     <Plus className="w-4 h-4 mr-1" />
                     Add
@@ -528,39 +572,73 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
             {/* Education */}
             <Card>
               <CardHeader>
-                <CardTitle>Education</CardTitle>
+                <div className="flex justify-between items-center">
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Education section heading"
+                      value={resume.sectionHeadings.education}
+                      onChange={(e) => updateResume({
+                        sectionHeadings: { ...resume.sectionHeadings, education: e.target.value }
+                      })}
+                      className="font-medium text-lg border-none p-0 focus:ring-0"
+                    />
+                  </div>
+                  <Button onClick={addEducation} size="sm">
+                    <Plus className="w-4 h-4 mr-1" />
+                    Add
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <Input
-                    placeholder="Degree"
-                    value={resume.education.degree}
-                    onChange={(e) => updateResume({
-                      education: { ...resume.education, degree: e.target.value }
-                    })}
-                  />
-                  <Input
-                    placeholder="Duration"
-                    value={resume.education.duration}
-                    onChange={(e) => updateResume({
-                      education: { ...resume.education, duration: e.target.value }
-                    })}
-                  />
-                </div>
-                <Input
-                  placeholder="Institution"
-                  value={resume.education.institution}
-                  onChange={(e) => updateResume({
-                    education: { ...resume.education, institution: e.target.value }
-                  })}
-                />
-                <Input
-                  placeholder="GPA (optional)"
-                  value={resume.education.gpa || ''}
-                  onChange={(e) => updateResume({
-                    education: { ...resume.education, gpa: e.target.value }
-                  })}
-                />
+                {resume.education.map((edu, index) => (
+                  <div key={edu.id} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex justify-between items-start">
+                      <h4 className="font-medium">Education {index + 1}</h4>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => deleteEducation(index)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <Input
+                        placeholder="Degree"
+                        value={edu.degree}
+                        onChange={(e) => updateEducation(index, { degree: e.target.value })}
+                      />
+                      <Input
+                        placeholder="Duration"
+                        value={edu.duration}
+                        onChange={(e) => updateEducation(index, { duration: e.target.value })}
+                      />
+                    </div>
+                    
+                    <Input
+                      placeholder="Institution"
+                      value={edu.institution}
+                      onChange={(e) => updateEducation(index, { institution: e.target.value })}
+                    />
+                    
+                    <Input
+                      placeholder="GPA (optional)"
+                      value={edu.gpa || ''}
+                      onChange={(e) => updateEducation(index, { gpa: e.target.value })}
+                    />
+                  </div>
+                ))}
+                
+                {resume.education.length === 0 && (
+                  <div className="text-center py-8 text-gray-500">
+                    <p>No education entries yet.</p>
+                    <Button onClick={addEducation} variant="outline" className="mt-2">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Education
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -568,7 +646,16 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>Leadership & Activities</CardTitle>
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Leadership section heading"
+                      value={resume.sectionHeadings.leadership}
+                      onChange={(e) => updateResume({
+                        sectionHeadings: { ...resume.sectionHeadings, leadership: e.target.value }
+                      })}
+                      className="font-medium text-lg border-none p-0 focus:ring-0"
+                    />
+                  </div>
                   <Button onClick={addLeadership} size="sm">
                     <Plus className="w-4 h-4 mr-1" />
                     Add
@@ -647,7 +734,16 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <CardTitle>Honors & Awards</CardTitle>
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Awards section heading"
+                      value={resume.sectionHeadings.awards}
+                      onChange={(e) => updateResume({
+                        sectionHeadings: { ...resume.sectionHeadings, awards: e.target.value }
+                      })}
+                      className="font-medium text-lg border-none p-0 focus:ring-0"
+                    />
+                  </div>
                   <Button onClick={addAward} size="sm">
                     <Plus className="w-4 h-4 mr-1" />
                     Add
@@ -725,7 +821,18 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
             {/* Skills */}
             <Card>
               <CardHeader>
-                <CardTitle>Skills</CardTitle>
+                <div className="flex justify-between items-center">
+                  <div className="flex-1">
+                    <Input
+                      placeholder="Skills section heading"
+                      value={resume.sectionHeadings.skills}
+                      onChange={(e) => updateResume({
+                        sectionHeadings: { ...resume.sectionHeadings, skills: e.target.value }
+                      })}
+                      className="font-medium text-lg border-none p-0 focus:ring-0"
+                    />
+                  </div>
+                </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 {/* Technical Skills */}

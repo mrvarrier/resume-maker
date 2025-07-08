@@ -190,7 +190,7 @@ interface ResumePDFProps {
 }
 
 export function ResumePDF({ resume }: ResumePDFProps) {
-  const { personalInfo, experience, education, leadership, awards, skills } = resume;
+  const { personalInfo, experience, education, leadership, awards, skills, sectionHeadings } = resume;
 
   return (
     <Document>
@@ -208,26 +208,29 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         </View>
 
         {/* Education Section */}
-        {(education.institution || education.degree) && (
+        {education.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>EDUCATION</Text>
-            <View style={styles.educationContent}>
-              <View style={styles.itemHeader}>
-                <Text style={styles.itemTitle}>{education.degree}</Text>
-                <Text style={styles.itemDate}>{education.duration}</Text>
+            <Text style={styles.sectionTitle}>{sectionHeadings.education}</Text>
+            {education.map((edu, index) => (
+              <View key={edu.id} style={index === education.length - 1 ? styles.experienceItemLast : styles.experienceItem}>
+                <View style={styles.itemHeader}>
+                  <Text style={styles.itemTitle}>{edu.degree}</Text>
+                  <Text style={styles.itemDate}>{edu.duration}</Text>
+                </View>
+                <Text style={styles.itemSubtitle}>{edu.institution}</Text>
+                {edu.gpa && (
+                  <Text style={styles.gpaText}>GPA: {edu.gpa}</Text>
+                )}
               </View>
-              <Text style={styles.itemSubtitle}>{education.institution}</Text>
-              {education.gpa && (
-                <Text style={styles.gpaText}>GPA: {education.gpa}</Text>
-              )}
-            </View>
+            ))}
           </View>
         )}
+
 
         {/* Experience Section */}
         {experience.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>EXPERIENCE</Text>
+            <Text style={styles.sectionTitle}>{sectionHeadings.experience}</Text>
             {experience.map((exp, index) => (
               <View 
                 key={exp.id} 
@@ -256,7 +259,7 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {/* Leadership Section */}
         {leadership.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>LEADERSHIP AND ACTIVITIES</Text>
+            <Text style={styles.sectionTitle}>{sectionHeadings.leadership}</Text>
             {leadership.map((lead, index) => (
               <View 
                 key={lead.id} 
@@ -285,7 +288,7 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {/* Awards Section */}
         {awards.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>HONORS AND AWARDS</Text>
+            <Text style={styles.sectionTitle}>{sectionHeadings.awards}</Text>
             {awards.map((award, index) => (
               <View 
                 key={award.id} 
@@ -314,7 +317,7 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {/* Skills Section - ATS Friendly */}
         {(skills.technical.length > 0 || skills.soft.length > 0) && (
           <View style={styles.sectionLast}>
-            <Text style={styles.sectionTitle}>SKILLS</Text>
+            <Text style={styles.sectionTitle}>{sectionHeadings.skills}</Text>
             {skills.technical.length > 0 && (
               <View style={skills.soft.length > 0 ? styles.skillsGroup : styles.skillsGroupLast}>
                 <Text style={styles.skillsCategory}>Technical: </Text>

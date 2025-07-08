@@ -8,6 +8,14 @@ export const A4_DIMENSIONS = {
   contentHeight: 1055, // 1123 - 28 - 40
 } as const;
 
+export const DEFAULT_SECTION_HEADINGS = {
+  education: 'EDUCATION',
+  experience: 'EXPERIENCE',
+  leadership: 'LEADERSHIP AND ACTIVITIES',
+  awards: 'HONORS AND AWARDS',
+  skills: 'SKILLS',
+};
+
 export const DEFAULT_RESUME = {
   personalInfo: {
     name: '',
@@ -16,16 +24,12 @@ export const DEFAULT_RESUME = {
     portfolio: '',
   },
   experience: [],
-  education: {
-    institution: '',
-    degree: '',
-    duration: '',
-    gpa: '',
-  },
+  education: [],
   leadership: [],
   awards: [],
   skills: {
     technical: [],
     soft: [],
   },
+  sectionHeadings: DEFAULT_SECTION_HEADINGS,
 };

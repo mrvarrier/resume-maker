@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Resume, ResumeData } from '@/types/resume';
 import { loadResumeData, saveResumeData, createEmptyResume, generateResumeId, formatDate } from '@/lib/resume-utils';
 import { sampleResume } from '@/lib/sample-data';
+import { DEFAULT_SECTION_HEADINGS } from '@/lib/constants';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -18,13 +19,19 @@ export default function HomePage() {
   useEffect(() => {
     const data = loadResumeData();
     
-    // Migrate existing resumes to new award format
+    // Migrate existing resumes to new format (awards, education, section headings)
     const migratedResumes = data.resumes.map(resume => ({
       ...resume,
       awards: resume.awards.map(award => ({
         ...award,
         bullets: award.bullets || (award.description ? [award.description] : ['']),
-      }))
+      })),
+      education: Array.isArray(resume.education) 
+        ? resume.education 
+        : resume.education && (resume.education.institution || resume.education.degree)
+          ? [{ ...resume.education, id: `edu_${Date.now()}_${Math.random().toString(36).substr(2, 9)}` }]
+          : [],
+      sectionHeadings: resume.sectionHeadings || DEFAULT_SECTION_HEADINGS,
     }));
     
     // If no resumes exist, add sample resume for demonstration

@@ -14,6 +14,7 @@ export interface Experience {
 }
 
 export interface Education {
+  id: string;
   institution: string;
   degree: string;
   duration: string;
@@ -41,6 +42,14 @@ export interface Skills {
   soft: string[];
 }
 
+export interface SectionHeadings {
+  education: string;
+  experience: string;
+  leadership: string;
+  awards: string;
+  skills: string;
+}
+
 export interface Resume {
   id: string;
   name: string;
@@ -48,10 +57,11 @@ export interface Resume {
   updatedAt: string;
   personalInfo: PersonalInfo;
   experience: Experience[];
-  education: Education;
+  education: Education[];
   leadership: Leadership[];
   awards: Award[];
   skills: Skills;
+  sectionHeadings: SectionHeadings;
 }
 
 export interface ResumeData {

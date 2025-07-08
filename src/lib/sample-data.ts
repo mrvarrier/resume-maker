@@ -1,4 +1,5 @@
 import { Resume } from '@/types/resume';
+import { DEFAULT_SECTION_HEADINGS } from './constants';
 
 export const sampleResume: Resume = {
   id: 'sample_resume_1',
@@ -37,12 +38,15 @@ export const sampleResume: Resume = {
       ],
     },
   ],
-  education: {
-    institution: 'University of Technology',
-    degree: 'Bachelor of Science in Computer Science',
-    duration: 'Sep 2016 - May 2020',
-    gpa: '3.8',
-  },
+  education: [
+    {
+      id: 'edu_1',
+      institution: 'University of Technology',
+      degree: 'Bachelor of Science in Computer Science',
+      duration: 'Sep 2016 - May 2020',
+      gpa: '3.8',
+    },
+  ],
   leadership: [
     {
       id: 'lead_1',
@@ -96,4 +100,5 @@ export const sampleResume: Resume = {
       'Project Management',
     ],
   },
+  sectionHeadings: DEFAULT_SECTION_HEADINGS,
 };

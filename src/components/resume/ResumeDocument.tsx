@@ -10,7 +10,7 @@ interface ResumeDocumentProps {
 }
 
 export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps) {
-  const { personalInfo, experience, education, leadership, awards, skills } = resume;
+  const { personalInfo, experience, education, leadership, awards, skills, sectionHeadings } = resume;
 
   return (
     <div 
@@ -47,20 +47,22 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
         </header>
 
         {/* Education Section - ATS Friendly */}
-        {(education.institution || education.degree) && (
+        {education.length > 0 && (
           <section className="ats-section">
-            <h2 className="ats-section-header">EDUCATION</h2>
+            <h2 className="ats-section-header">{sectionHeadings.education}</h2>
             <div className="ats-content">
-              <div className="ats-education">
-                <div className="ats-education-header">
-                  <h3 className="ats-degree">{education.degree}</h3>
-                  <div className="ats-dates">{education.duration}</div>
+              {education.map((edu, index) => (
+                <div key={edu.id} className="ats-education">
+                  <div className="ats-education-header">
+                    <h3 className="ats-degree">{edu.degree}</h3>
+                    <div className="ats-dates">{edu.duration}</div>
+                  </div>
+                  <div className="ats-school">{edu.institution}</div>
+                  {edu.gpa && (
+                    <div className="ats-gpa">GPA: {edu.gpa}</div>
+                  )}
                 </div>
-                <div className="ats-school">{education.institution}</div>
-                {education.gpa && (
-                  <div className="ats-gpa">GPA: {education.gpa}</div>
-                )}
-              </div>
+              ))}
             </div>
           </section>
         )}
@@ -68,7 +70,7 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
         {/* Experience Section - ATS Friendly */}
         {experience.length > 0 && (
           <section className="ats-section">
-            <h2 className="ats-section-header">EXPERIENCE</h2>
+            <h2 className="ats-section-header">{sectionHeadings.experience}</h2>
             <div className="ats-content">
               {experience.map((exp, index) => (
                 <div key={exp.id} className="ats-job">
@@ -95,7 +97,7 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
         {/* Leadership Section - ATS Friendly */}
         {leadership.length > 0 && (
           <section className="ats-section">
-            <h2 className="ats-section-header">LEADERSHIP AND ACTIVITIES</h2>
+            <h2 className="ats-section-header">{sectionHeadings.leadership}</h2>
             <div className="ats-content">
               {leadership.map((lead, index) => (
                 <div key={lead.id} className="ats-leadership">
@@ -122,7 +124,7 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
         {/* Awards Section - ATS Friendly */}
         {awards.length > 0 && (
           <section className="ats-section">
-            <h2 className="ats-section-header">HONORS AND AWARDS</h2>
+            <h2 className="ats-section-header">{sectionHeadings.awards}</h2>
             <div className="ats-content">
               {awards.map((award, index) => (
                 <div key={award.id} className="ats-award">
@@ -149,7 +151,7 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
         {/* Skills Section - ATS Friendly */}
         {(skills.technical.length > 0 || skills.soft.length > 0) && (
           <section className="ats-section">
-            <h2 className="ats-section-header">SKILLS</h2>
+            <h2 className="ats-section-header">{sectionHeadings.skills}</h2>
             <div className="ats-content">
               {skills.technical.length > 0 && (
                 <div className="ats-skills-group">
