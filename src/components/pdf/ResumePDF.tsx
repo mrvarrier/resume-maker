@@ -68,9 +68,13 @@ const styles = StyleSheet.create({
   // Section Structure
   section: {
     marginBottom: 20,
+    orphans: 2,
+    widows: 2,
   },
   sectionLast: {
     marginBottom: 0,
+    orphans: 2,
+    widows: 2,
   },
   sectionTitle: {
     fontFamily: 'Times-Bold',
@@ -90,10 +94,12 @@ const styles = StyleSheet.create({
   experienceItem: {
     marginBottom: 10,
     width: '100%',
+    break: 'auto',
   },
   experienceItemLast: {
     marginBottom: 0,
     width: '100%',
+    break: 'auto',
   },
   itemHeader: {
     flexDirection: 'row',
@@ -129,6 +135,7 @@ const styles = StyleSheet.create({
   bulletList: {
     marginLeft: 0,
     width: 724, // Exact content width
+    break: 'auto',
   },
   bulletItem: {
     flexDirection: 'row',
@@ -136,6 +143,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: 724, // Exact content width
     maxWidth: 724,
+    break: 'auto',
   },
   bulletSymbol: {
     fontFamily: 'Times-Roman',
@@ -172,10 +180,12 @@ const styles = StyleSheet.create({
   awardItem: {
     marginBottom: 10,
     width: '100%',
+    break: 'auto',
   },
   awardItemLast: {
     marginBottom: 0,
     width: '100%',
+    break: 'auto',
   },
   awardDescription: {
     fontFamily: 'Times-Roman',
