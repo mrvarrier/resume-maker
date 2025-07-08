@@ -45,7 +45,15 @@ const styles = StyleSheet.create({
     color: '#000000',
     lineHeight: 1.2,
     marginTop: 5,
-    textDecoration: 'none',
+    textDecoration: 'underline',
+  },
+  contactEmail: {
+    fontFamily: 'Times-Roman',
+    fontSize: 10,
+    color: '#000000',
+    lineHeight: 1.2,
+    marginTop: 5,
+    textDecoration: 'underline',
   },
   
   // Section Structure
@@ -208,36 +216,33 @@ export function ResumePDF({ resume }: ResumePDFProps) {
           <Text style={styles.name}>
             {personalInfo.name || 'Your Name'}
           </Text>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'baseline' }}>
             {personalInfo.email && (
-              <>
-                <Text style={styles.contactInfo}>{personalInfo.email}</Text>
-                {(personalInfo.linkedin.text || personalInfo.portfolio.text || personalInfo.github.text) && (
-                  <Text style={styles.contactInfo}> | </Text>
-                )}
-              </>
+              <Text style={styles.contactEmail}>{personalInfo.email}</Text>
+            )}
+            
+            {personalInfo.email && (personalInfo.linkedin.text || personalInfo.portfolio.text || personalInfo.github.text) && (
+              <Text style={styles.contactInfo}> | </Text>
             )}
             
             {personalInfo.linkedin.text && personalInfo.linkedin.url && (
-              <>
-                <Link src={personalInfo.linkedin.url} style={styles.contactLink}>
-                  {personalInfo.linkedin.text}
-                </Link>
-                {(personalInfo.portfolio.text || personalInfo.github.text) && (
-                  <Text style={styles.contactInfo}> | </Text>
-                )}
-              </>
+              <Link src={personalInfo.linkedin.url} style={styles.contactLink}>
+                {personalInfo.linkedin.text}
+              </Link>
+            )}
+            
+            {personalInfo.linkedin.text && personalInfo.linkedin.url && (personalInfo.portfolio.text || personalInfo.github.text) && (
+              <Text style={styles.contactInfo}> | </Text>
             )}
             
             {personalInfo.portfolio.text && personalInfo.portfolio.url && (
-              <>
-                <Link src={personalInfo.portfolio.url} style={styles.contactLink}>
-                  {personalInfo.portfolio.text}
-                </Link>
-                {personalInfo.github.text && (
-                  <Text style={styles.contactInfo}> | </Text>
-                )}
-              </>
+              <Link src={personalInfo.portfolio.url} style={styles.contactLink}>
+                {personalInfo.portfolio.text}
+              </Link>
+            )}
+            
+            {personalInfo.portfolio.text && personalInfo.portfolio.url && personalInfo.github.text && personalInfo.github.url && (
+              <Text style={styles.contactInfo}> | </Text>
             )}
             
             {personalInfo.github.text && personalInfo.github.url && (

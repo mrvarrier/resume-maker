@@ -41,7 +41,9 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
           </h1>
           <div className="ats-contact">
             {[
-              personalInfo.email,
+              personalInfo.email ? (
+                <span key="email" className="ats-link">{personalInfo.email}</span>
+              ) : null,
               personalInfo.linkedin.text && personalInfo.linkedin.url ? (
                 <a 
                   key="linkedin"
@@ -52,7 +54,9 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
                 >
                   {personalInfo.linkedin.text}
                 </a>
-              ) : personalInfo.linkedin.text || personalInfo.linkedin.url,
+              ) : personalInfo.linkedin.text || personalInfo.linkedin.url ? (
+                <span key="linkedin-text" className="ats-link">{personalInfo.linkedin.text || personalInfo.linkedin.url}</span>
+              ) : null,
               personalInfo.portfolio.text && personalInfo.portfolio.url ? (
                 <a 
                   key="portfolio"
@@ -63,7 +67,9 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
                 >
                   {personalInfo.portfolio.text}
                 </a>
-              ) : personalInfo.portfolio.text || personalInfo.portfolio.url,
+              ) : personalInfo.portfolio.text || personalInfo.portfolio.url ? (
+                <span key="portfolio-text" className="ats-link">{personalInfo.portfolio.text || personalInfo.portfolio.url}</span>
+              ) : null,
               personalInfo.github.text && personalInfo.github.url ? (
                 <a 
                   key="github"
@@ -74,7 +80,9 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
                 >
                   {personalInfo.github.text}
                 </a>
-              ) : personalInfo.github.text || personalInfo.github.url
+              ) : personalInfo.github.text || personalInfo.github.url ? (
+                <span key="github-text" className="ats-link">{personalInfo.github.text || personalInfo.github.url}</span>
+              ) : null
             ]
               .filter(Boolean)
               .reduce((acc, curr, index) => {

@@ -342,7 +342,7 @@ body {
 /* ATS-Friendly Link Styles */
 .ats-link {
   color: #000000;
-  text-decoration: none;
+  text-decoration: underline;
   font-size: 10px;
   font-family: "Times New Roman", Times, serif;
 }
@@ -355,10 +355,20 @@ body {
   color: #000000;
 }
 
+/* Contact info styling */
+.ats-contact {
+  font-size: 10px;
+}
+
+.ats-contact a,
+.ats-contact {
+  text-decoration: underline;
+}
+
 /* Print-friendly links */
 @media print {
   .ats-link {
     color: #000000 !important;
-    text-decoration: none !important;
+    text-decoration: underline !important;
   }
 }
