@@ -44,6 +44,10 @@ export default function HomePage() {
           ? { text: resume.personalInfo.github ? 'GitHub' : '', url: resume.personalInfo.github || '' }
           : resume.personalInfo.github || { text: '', url: '' },
       },
+      skills: {
+        ...resume.skills,
+        product: resume.skills.product || [],
+      },
     }));
     
     // If no resumes exist, add sample resume for demonstration

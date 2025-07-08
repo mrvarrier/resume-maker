@@ -93,6 +93,13 @@ export const sampleResume: Resume = {
       'PostgreSQL',
       'Redis',
     ],
+    product: [
+      'Product Strategy',
+      'User Research',
+      'A/B Testing',
+      'Analytics',
+      'Roadmap Planning',
+    ],
     soft: [
       'Leadership',
       'Problem Solving',

@@ -45,6 +45,7 @@ export interface Award {
 
 export interface Skills {
   technical: string[];
+  product: string[];
   soft: string[];
 }
 

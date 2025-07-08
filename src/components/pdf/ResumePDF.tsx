@@ -370,13 +370,19 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         )}
 
         {/* Skills Section - ATS Friendly */}
-        {(skills.technical.length > 0 || skills.soft.length > 0) && (
+        {(skills.technical.length > 0 || skills.product.length > 0 || skills.soft.length > 0) && (
           <View style={styles.sectionLast}>
             <Text style={styles.sectionTitle}>{sectionHeadings.skills}</Text>
             {skills.technical.length > 0 && (
-              <View style={skills.soft.length > 0 ? styles.skillsGroup : styles.skillsGroupLast}>
+              <View style={(skills.product.length > 0 || skills.soft.length > 0) ? styles.skillsGroup : styles.skillsGroupLast}>
                 <Text style={styles.skillsCategory}>Technical: </Text>
                 <Text style={styles.skillsList}>{skills.technical.join(', ')}</Text>
+              </View>
+            )}
+            {skills.product.length > 0 && (
+              <View style={skills.soft.length > 0 ? styles.skillsGroup : styles.skillsGroupLast}>
+                <Text style={styles.skillsCategory}>Product: </Text>
+                <Text style={styles.skillsList}>{skills.product.join(', ')}</Text>
               </View>
             )}
             {skills.soft.length > 0 && (

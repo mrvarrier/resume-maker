@@ -30,6 +30,7 @@ export const DEFAULT_RESUME = {
   awards: [],
   skills: {
     technical: [],
+    product: [],
     soft: [],
   },
   sectionHeadings: DEFAULT_SECTION_HEADINGS,

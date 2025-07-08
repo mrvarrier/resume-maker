@@ -55,6 +55,10 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
             ? { text: foundResume.personalInfo.github ? 'GitHub' : '', url: foundResume.personalInfo.github || '' }
             : foundResume.personalInfo.github || { text: '', url: '' },
         },
+        skills: {
+          ...foundResume.skills,
+          product: foundResume.skills.product || [],
+        },
       };
       setResume(migratedResume);
       lastResumeRef.current = JSON.stringify(migratedResume);
@@ -338,21 +342,21 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
     updateResume({ education: updatedEducation });
   };
 
-  const addSkill = (type: 'technical' | 'soft') => {
+  const addSkill = (type: 'technical' | 'product' | 'soft') => {
     if (!resume) return;
     const updatedSkills = { ...resume.skills };
     updatedSkills[type].push('');
     updateResume({ skills: updatedSkills });
   };
 
-  const updateSkill = (type: 'technical' | 'soft', index: number, value: string) => {
+  const updateSkill = (type: 'technical' | 'product' | 'soft', index: number, value: string) => {
     if (!resume) return;
     const updatedSkills = { ...resume.skills };
     updatedSkills[type][index] = value;
     updateResume({ skills: updatedSkills });
   };
 
-  const deleteSkill = (type: 'technical' | 'soft', index: number) => {
+  const deleteSkill = (type: 'technical' | 'product' | 'soft', index: number) => {
     if (!resume) return;
     const updatedSkills = { ...resume.skills };
     updatedSkills[type] = updatedSkills[type].filter((_, i) => i !== index);
@@ -938,6 +942,38 @@ export function ResumeEditor({ resumeId }: ResumeEditorProps) {
                         variant="ghost"
                         size="sm"
                         onClick={() => deleteSkill('technical', index)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Product Skills */}
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-medium">Product Skills</h4>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => addSkill('product')}
+                    >
+                      <Plus className="w-4 h-4 mr-1" />
+                      Add
+                    </Button>
+                  </div>
+                  
+                  {resume.skills.product.map((skill, index) => (
+                    <div key={index} className="flex space-x-2">
+                      <Input
+                        placeholder="Product skill"
+                        value={skill}
+                        onChange={(e) => updateSkill('product', index, e.target.value)}
+                      />
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => deleteSkill('product', index)}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>

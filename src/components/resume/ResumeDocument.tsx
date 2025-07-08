@@ -195,7 +195,7 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
         )}
 
         {/* Skills Section - ATS Friendly */}
-        {(skills.technical.length > 0 || skills.soft.length > 0) && (
+        {(skills.technical.length > 0 || skills.product.length > 0 || skills.soft.length > 0) && (
           <section className="ats-section">
             <h2 className="ats-section-header">{sectionHeadings.skills}</h2>
             <div className="ats-content">
@@ -203,6 +203,12 @@ export function ResumeDocument({ resume, mode = 'preview' }: ResumeDocumentProps
                 <div className="ats-skills-group">
                   <span className="ats-skills-category">Technical</span>
                   <span className="ats-skills-list">{skills.technical.join(', ')}</span>
+                </div>
+              )}
+              {skills.product.length > 0 && (
+                <div className="ats-skills-group">
+                  <span className="ats-skills-category">Product</span>
+                  <span className="ats-skills-list">{skills.product.join(', ')}</span>
                 </div>
               )}
               {skills.soft.length > 0 && (
