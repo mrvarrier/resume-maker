@@ -39,6 +39,14 @@ const styles = StyleSheet.create({
     lineHeight: 1.2,
     marginTop: 5,
   },
+  contactLink: {
+    fontFamily: 'Times-Roman',
+    fontSize: 10,
+    color: '#000000',
+    lineHeight: 1.2,
+    marginTop: 5,
+    textDecoration: 'none',
+  },
   
   // Section Structure
   section: {
@@ -200,22 +208,44 @@ export function ResumePDF({ resume }: ResumePDFProps) {
           <Text style={styles.name}>
             {personalInfo.name || 'Your Name'}
           </Text>
-          <Text style={styles.contactInfo}>
-            {[
-              personalInfo.email,
-              personalInfo.linkedin.text && personalInfo.linkedin.url 
-                ? personalInfo.linkedin.text 
-                : personalInfo.linkedin.text || personalInfo.linkedin.url,
-              personalInfo.portfolio.text && personalInfo.portfolio.url 
-                ? personalInfo.portfolio.text 
-                : personalInfo.portfolio.text || personalInfo.portfolio.url,
-              personalInfo.github.text && personalInfo.github.url 
-                ? personalInfo.github.text 
-                : personalInfo.github.text || personalInfo.github.url
-            ]
-              .filter(Boolean)
-              .join(' | ')}
-          </Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {personalInfo.email && (
+              <>
+                <Text style={styles.contactInfo}>{personalInfo.email}</Text>
+                {(personalInfo.linkedin.text || personalInfo.portfolio.text || personalInfo.github.text) && (
+                  <Text style={styles.contactInfo}> | </Text>
+                )}
+              </>
+            )}
+            
+            {personalInfo.linkedin.text && personalInfo.linkedin.url && (
+              <>
+                <Link src={personalInfo.linkedin.url} style={styles.contactLink}>
+                  {personalInfo.linkedin.text}
+                </Link>
+                {(personalInfo.portfolio.text || personalInfo.github.text) && (
+                  <Text style={styles.contactInfo}> | </Text>
+                )}
+              </>
+            )}
+            
+            {personalInfo.portfolio.text && personalInfo.portfolio.url && (
+              <>
+                <Link src={personalInfo.portfolio.url} style={styles.contactLink}>
+                  {personalInfo.portfolio.text}
+                </Link>
+                {personalInfo.github.text && (
+                  <Text style={styles.contactInfo}> | </Text>
+                )}
+              </>
+            )}
+            
+            {personalInfo.github.text && personalInfo.github.url && (
+              <Link src={personalInfo.github.url} style={styles.contactLink}>
+                {personalInfo.github.text}
+              </Link>
+            )}
+          </View>
         </View>
 
         {/* Education Section */}
