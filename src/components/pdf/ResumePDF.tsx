@@ -39,6 +39,15 @@ const styles = StyleSheet.create({
     lineHeight: 1.2,
     marginTop: 5,
   },
+  contactSeparator: {
+    fontFamily: 'Times-Roman',
+    fontSize: 10,
+    color: '#000000',
+    lineHeight: 1.2,
+    marginTop: 5,
+    marginLeft: 4,
+    marginRight: 4,
+  },
   contactLink: {
     fontFamily: 'Times-Roman',
     fontSize: 10,
@@ -222,7 +231,7 @@ export function ResumePDF({ resume }: ResumePDFProps) {
             )}
             
             {personalInfo.email && (personalInfo.linkedin.text || personalInfo.portfolio.text || personalInfo.github.text) && (
-              <Text style={styles.contactInfo}> | </Text>
+              <Text style={styles.contactSeparator}>|</Text>
             )}
             
             {personalInfo.linkedin.text && personalInfo.linkedin.url && (
@@ -232,7 +241,7 @@ export function ResumePDF({ resume }: ResumePDFProps) {
             )}
             
             {personalInfo.linkedin.text && personalInfo.linkedin.url && (personalInfo.portfolio.text || personalInfo.github.text) && (
-              <Text style={styles.contactInfo}> | </Text>
+              <Text style={styles.contactSeparator}>|</Text>
             )}
             
             {personalInfo.portfolio.text && personalInfo.portfolio.url && (
@@ -242,7 +251,7 @@ export function ResumePDF({ resume }: ResumePDFProps) {
             )}
             
             {personalInfo.portfolio.text && personalInfo.portfolio.url && personalInfo.github.text && personalInfo.github.url && (
-              <Text style={styles.contactInfo}> | </Text>
+              <Text style={styles.contactSeparator}>|</Text>
             )}
             
             {personalInfo.github.text && personalInfo.github.url && (
