@@ -68,13 +68,15 @@ const styles = StyleSheet.create({
   // Section Structure
   section: {
     marginBottom: 20,
-    orphans: 2,
-    widows: 2,
+    orphans: 3,
+    widows: 3,
+    breakInside: 'avoid',
   },
   sectionLast: {
     marginBottom: 0,
-    orphans: 2,
-    widows: 2,
+    orphans: 3,
+    widows: 3,
+    breakInside: 'avoid',
   },
   sectionTitle: {
     fontFamily: 'Times-Bold',
@@ -88,18 +90,26 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     lineHeight: 1.2,
     color: '#000000',
+    break: 'avoid',
+    breakAfter: 'avoid',
+    orphans: 3,
+    widows: 3,
   },
   
   // Experience/Leadership Items
   experienceItem: {
     marginBottom: 10,
     width: '100%',
-    break: 'auto',
+    breakInside: 'avoid',
+    orphans: 2,
+    widows: 2,
   },
   experienceItemLast: {
     marginBottom: 0,
     width: '100%',
-    break: 'auto',
+    breakInside: 'avoid',
+    orphans: 2,
+    widows: 2,
   },
   itemHeader: {
     flexDirection: 'row',
@@ -135,7 +145,9 @@ const styles = StyleSheet.create({
   bulletList: {
     marginLeft: 0,
     width: 724, // Exact content width
-    break: 'auto',
+    breakInside: 'avoid',
+    orphans: 2,
+    widows: 2,
   },
   bulletItem: {
     flexDirection: 'row',
@@ -143,7 +155,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: 724, // Exact content width
     maxWidth: 724,
-    break: 'auto',
+    breakInside: 'avoid',
+    orphans: 1,
+    widows: 1,
   },
   bulletSymbol: {
     fontFamily: 'Times-Roman',
@@ -180,12 +194,16 @@ const styles = StyleSheet.create({
   awardItem: {
     marginBottom: 10,
     width: '100%',
-    break: 'auto',
+    breakInside: 'avoid',
+    orphans: 2,
+    widows: 2,
   },
   awardItemLast: {
     marginBottom: 0,
     width: '100%',
-    break: 'auto',
+    breakInside: 'avoid',
+    orphans: 2,
+    widows: 2,
   },
   awardDescription: {
     fontFamily: 'Times-Roman',
@@ -276,18 +294,20 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {education.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{sectionHeadings.education}</Text>
-            {education.map((edu, index) => (
-              <View key={edu.id} style={index === education.length - 1 ? styles.experienceItemLast : styles.experienceItem}>
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemTitle}>{edu.degree}</Text>
-                  <Text style={styles.itemDate}>{edu.duration}</Text>
+            <View style={{ break: 'avoid' }}>
+              {education.map((edu, index) => (
+                <View key={edu.id} style={index === education.length - 1 ? styles.experienceItemLast : styles.experienceItem}>
+                  <View style={styles.itemHeader}>
+                    <Text style={styles.itemTitle}>{edu.degree}</Text>
+                    <Text style={styles.itemDate}>{edu.duration}</Text>
+                  </View>
+                  <Text style={styles.itemSubtitle}>{edu.institution}</Text>
+                  {edu.gpa && (
+                    <Text style={styles.gpaText}>GPA: {edu.gpa}</Text>
+                  )}
                 </View>
-                <Text style={styles.itemSubtitle}>{edu.institution}</Text>
-                {edu.gpa && (
-                  <Text style={styles.gpaText}>GPA: {edu.gpa}</Text>
-                )}
-              </View>
-            ))}
+              ))}
+            </View>
           </View>
         )}
 
@@ -296,28 +316,30 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {experience.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{sectionHeadings.experience}</Text>
-            {experience.map((exp, index) => (
-              <View 
-                key={exp.id} 
-                style={index === experience.length - 1 ? styles.experienceItemLast : styles.experienceItem}
-              >
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemTitle}>{exp.title}</Text>
-                  <Text style={styles.itemDate}>{exp.duration}</Text>
-                </View>
-                <Text style={styles.itemSubtitle}>{exp.company}</Text>
-                {exp.bullets.length > 0 && exp.bullets.some(bullet => bullet.trim()) && (
-                  <View style={styles.bulletList}>
-                    {exp.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
-                      <View key={bulletIndex} style={styles.bulletItem}>
-                        <Text style={styles.bulletSymbol}>•</Text>
-                        <Text style={styles.bulletText}>{bullet}</Text>
-                      </View>
-                    ))}
+            <View style={{ break: 'avoid' }}>
+              {experience.map((exp, index) => (
+                <View 
+                  key={exp.id} 
+                  style={index === experience.length - 1 ? styles.experienceItemLast : styles.experienceItem}
+                >
+                  <View style={styles.itemHeader}>
+                    <Text style={styles.itemTitle}>{exp.title}</Text>
+                    <Text style={styles.itemDate}>{exp.duration}</Text>
                   </View>
-                )}
-              </View>
-            ))}
+                  <Text style={styles.itemSubtitle}>{exp.company}</Text>
+                  {exp.bullets.length > 0 && exp.bullets.some(bullet => bullet.trim()) && (
+                    <View style={styles.bulletList}>
+                      {exp.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
+                        <View key={bulletIndex} style={styles.bulletItem}>
+                          <Text style={styles.bulletSymbol}>•</Text>
+                          <Text style={styles.bulletText}>{bullet}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
         )}
 
@@ -325,28 +347,30 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {leadership.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{sectionHeadings.leadership}</Text>
-            {leadership.map((lead, index) => (
-              <View 
-                key={lead.id} 
-                style={index === leadership.length - 1 ? styles.experienceItemLast : styles.experienceItem}
-              >
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemTitle}>{lead.title}</Text>
-                  <Text style={styles.itemDate}>{lead.duration}</Text>
-                </View>
-                <Text style={styles.itemSubtitle}>{lead.organization}</Text>
-                {lead.bullets.length > 0 && lead.bullets.some(bullet => bullet.trim()) && (
-                  <View style={styles.bulletList}>
-                    {lead.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
-                      <View key={bulletIndex} style={styles.bulletItem}>
-                        <Text style={styles.bulletSymbol}>•</Text>
-                        <Text style={styles.bulletText}>{bullet}</Text>
-                      </View>
-                    ))}
+            <View style={{ break: 'avoid' }}>
+              {leadership.map((lead, index) => (
+                <View 
+                  key={lead.id} 
+                  style={index === leadership.length - 1 ? styles.experienceItemLast : styles.experienceItem}
+                >
+                  <View style={styles.itemHeader}>
+                    <Text style={styles.itemTitle}>{lead.title}</Text>
+                    <Text style={styles.itemDate}>{lead.duration}</Text>
                   </View>
-                )}
-              </View>
-            ))}
+                  <Text style={styles.itemSubtitle}>{lead.organization}</Text>
+                  {lead.bullets.length > 0 && lead.bullets.some(bullet => bullet.trim()) && (
+                    <View style={styles.bulletList}>
+                      {lead.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
+                        <View key={bulletIndex} style={styles.bulletItem}>
+                          <Text style={styles.bulletSymbol}>•</Text>
+                          <Text style={styles.bulletText}>{bullet}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
         )}
 
@@ -354,28 +378,30 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {awards.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{sectionHeadings.awards}</Text>
-            {awards.map((award, index) => (
-              <View 
-                key={award.id} 
-                style={index === awards.length - 1 ? styles.awardItemLast : styles.awardItem}
-              >
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemTitle}>{award.title}</Text>
-                  <Text style={styles.itemDate}>{award.date}</Text>
-                </View>
-                <Text style={styles.itemSubtitle}>{award.organization}</Text>
-                {award.bullets.length > 0 && award.bullets.some(bullet => bullet.trim()) && (
-                  <View style={styles.bulletList}>
-                    {award.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
-                      <View key={bulletIndex} style={styles.bulletItem}>
-                        <Text style={styles.bulletSymbol}>•</Text>
-                        <Text style={styles.bulletText}>{bullet}</Text>
-                      </View>
-                    ))}
+            <View style={{ break: 'avoid' }}>
+              {awards.map((award, index) => (
+                <View 
+                  key={award.id} 
+                  style={index === awards.length - 1 ? styles.awardItemLast : styles.awardItem}
+                >
+                  <View style={styles.itemHeader}>
+                    <Text style={styles.itemTitle}>{award.title}</Text>
+                    <Text style={styles.itemDate}>{award.date}</Text>
                   </View>
-                )}
-              </View>
-            ))}
+                  <Text style={styles.itemSubtitle}>{award.organization}</Text>
+                  {award.bullets.length > 0 && award.bullets.some(bullet => bullet.trim()) && (
+                    <View style={styles.bulletList}>
+                      {award.bullets.filter(bullet => bullet.trim()).map((bullet, bulletIndex) => (
+                        <View key={bulletIndex} style={styles.bulletItem}>
+                          <Text style={styles.bulletSymbol}>•</Text>
+                          <Text style={styles.bulletText}>{bullet}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
         )}
 
@@ -383,24 +409,26 @@ export function ResumePDF({ resume }: ResumePDFProps) {
         {(skills.technical.length > 0 || skills.product.length > 0 || skills.soft.length > 0) && (
           <View style={styles.sectionLast}>
             <Text style={styles.sectionTitle}>{sectionHeadings.skills}</Text>
-            {skills.technical.length > 0 && (
-              <View style={(skills.product.length > 0 || skills.soft.length > 0) ? styles.skillsGroup : styles.skillsGroupLast}>
-                <Text style={styles.skillsCategory}>Technical: </Text>
-                <Text style={styles.skillsList}>{skills.technical.join(', ')}</Text>
-              </View>
-            )}
-            {skills.product.length > 0 && (
-              <View style={skills.soft.length > 0 ? styles.skillsGroup : styles.skillsGroupLast}>
-                <Text style={styles.skillsCategory}>Product: </Text>
-                <Text style={styles.skillsList}>{skills.product.join(', ')}</Text>
-              </View>
-            )}
-            {skills.soft.length > 0 && (
-              <View style={styles.skillsGroupLast}>
-                <Text style={styles.skillsCategory}>Soft Skills: </Text>
-                <Text style={styles.skillsList}>{skills.soft.join(', ')}</Text>
-              </View>
-            )}
+            <View style={{ break: 'avoid' }}>
+              {skills.technical.length > 0 && (
+                <View style={(skills.product.length > 0 || skills.soft.length > 0) ? styles.skillsGroup : styles.skillsGroupLast}>
+                  <Text style={styles.skillsCategory}>Technical: </Text>
+                  <Text style={styles.skillsList}>{skills.technical.join(', ')}</Text>
+                </View>
+              )}
+              {skills.product.length > 0 && (
+                <View style={skills.soft.length > 0 ? styles.skillsGroup : styles.skillsGroupLast}>
+                  <Text style={styles.skillsCategory}>Product: </Text>
+                  <Text style={styles.skillsList}>{skills.product.join(', ')}</Text>
+                </View>
+              )}
+              {skills.soft.length > 0 && (
+                <View style={styles.skillsGroupLast}>
+                  <Text style={styles.skillsCategory}>Soft Skills: </Text>
+                  <Text style={styles.skillsList}>{skills.soft.join(', ')}</Text>
+                </View>
+              )}
+            </View>
           </View>
         )}
       </Page>
