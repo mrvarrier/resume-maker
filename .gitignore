@@ -134,8 +134,6 @@ docs/_build/
 GITHUB_SETUP_*.md
 GIT_COMMANDS.md
 
-# Project-specific files
-setup.sh
 
 # Sample data (if not needed in production)
 # data/

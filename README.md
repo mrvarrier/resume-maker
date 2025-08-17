@@ -58,9 +58,51 @@ A modern, professional resume builder with real-time preview and ATS-friendly PD
 
 ### Prerequisites
 - Node.js 18+ 
-- npm, yarn, or pnpm
+- npm 8+ (comes with Node.js)
 
-### Installation
+### 🎯 Automated Setup (Recommended)
+
+The easiest way to get started is using our automated setup scripts:
+
+#### macOS/Linux
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/ats-resume-builder.git
+cd ats-resume-builder
+
+# Run the setup script
+./setup.sh
+```
+
+#### Windows (Command Prompt)
+```cmd
+# Clone the repository
+git clone https://github.com/yourusername/ats-resume-builder.git
+cd ats-resume-builder
+
+# Run the setup script
+setup.bat
+```
+
+#### Windows (PowerShell)
+```powershell
+# Clone the repository
+git clone https://github.com/yourusername/ats-resume-builder.git
+cd ats-resume-builder
+
+# Run the setup script (you may need to allow script execution first)
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\setup.ps1
+```
+
+The setup scripts will:
+- ✅ Check for Node.js and npm installation
+- ✅ Verify version requirements
+- ✅ Install all project dependencies
+- ✅ Run an initial build to verify everything works
+- ✅ Provide instructions to start the development server
+
+### Manual Installation
 
 1. **Clone the repository**
    ```bash
@@ -322,3 +364,53 @@ If you encounter any issues or have questions:
 2. Set build command: `npm run build`
 3. Set publish directory: `out`
 4. Deploy
+
+## 🔧 Troubleshooting
+
+### Common Setup Issues
+
+#### Node.js Version Issues
+If you encounter version compatibility issues:
+- Use [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager) for macOS/Linux
+- Use [nvm-windows](https://github.com/coreybutler/nvm-windows) for Windows
+- The project includes a `.nvmrc` file, so you can simply run `nvm use` in the project directory
+
+#### npm Installation Fails
+If npm install fails:
+```bash
+# Clear npm cache
+npm cache clean --force
+
+# Delete node_modules and package-lock.json
+rm -rf node_modules package-lock.json
+
+# Try installing again
+npm install
+```
+
+#### PowerShell Script Execution Policy (Windows)
+If you can't run the PowerShell setup script:
+```powershell
+# Allow script execution for current session only
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+# Or permanently for current user (use with caution)
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+#### Port 3002 Already in Use
+If port 3002 is already in use:
+- Kill the process using the port, or
+- Change the port in `package.json` scripts:
+  ```json
+  "dev": "next dev -p 3003",
+  "start": "next start -p 3003"
+  ```
+
+#### Build Errors
+If the build fails:
+- Ensure all dependencies are installed: `npm install`
+- Check TypeScript errors: `npm run type-check`
+- Check for linting issues: `npm run lint`
+
+For more help, please check the [Issues](https://github.com/yourusername/ats-resume-builder/issues) page or create a new issue
